@@ -1,0 +1,78 @@
+﻿@page
+@model FlashCardsDemo.Pages.FlashCards.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <p class="create">
+        <a asp-page="Create" class="btn btn-info btn-sm">Create New</a>
+    </p>
+
+    @if (Model.FlashCard.Count() > 0)
+    {
+        <ul id="deck">
+            @foreach (var item in Model.FlashCard)
+            {
+                <li class="card">
+                    <div class="side_one">
+                        <p>@item.Question</p>
+                    </div>
+                    <div class="side_two">
+                        <p>@item.Answer</p>
+                    </div>
+                </li>
+            }
+        </ul>
+        <div id="nav_deck">
+            <span class="icon" id="prev" data-icon="⇤"><span class="visuallyhidden">Previous</span></span>
+            <span class="icon" id="flipper" data-icon="⇅"><span class="visuallyhidden">Flip</span></span>
+            <span class="icon" id="next" data-icon="⇥"><span class="visuallyhidden">Next</span></span>
+        </div>
+        <table  class="table table-bordered tb-style">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FlashCard[0].Question)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FlashCard[0].Answer)
+                    </th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.FlashCard)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Question)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Answer)
+                        </td>
+                        <td>
+                            <a class="btn btn-info btn-sm" asp-page="./Edit" asp-route-id="@item.Id">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a> |
+                            <a class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-id="@item.Id"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No cards to display</p>
+    }
+
+</div>
+<style>
+    .footer {
+        position: relative !important;
+    }
+</style>

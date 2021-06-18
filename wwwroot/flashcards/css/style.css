@@ -1,0 +1,414 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;200;300;400;500;600;700&display=swap');
+body {
+    background: #f9f9f9;
+    color: #ccc;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Public Sans', sans-serif;
+}
+@font-face {
+    font-family: "Flash Cards";
+    src: url("../resources/fonts/flash_cards/flash_cards.eot");
+    src: url("../resources/fonts/flash_cards/flash_cards.eot?#iefix") format("embedded-opentype"), url("../resources/fonts/flash_cards/flash_cards.svg#flash_cards") format("svg"), url("../resources/fonts/flash_cards/flash_cards.woff") format("woff"), url("../resources/fonts/flash_cards/flash_cards.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+#deck {
+    height: 300px;
+    list-style: none;
+    margin: 15px auto;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    width: 500px;
+}
+
+.card {
+    -webkit-perspective: 1600;
+    color: #222;
+    display: none;
+    font-size: 30px;
+    height: 300px;
+    line-height: 60px;
+    position: relative;
+    width: 500px;
+    border: none;
+    border-radius: 36px;
+}
+
+    .card:first-child {
+        display: block;
+    }
+
+.side_one,
+.side_two {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 30, color-stop(0%, #ffffff), color-stop(96.667%, #ffffff), color-stop(100%, #0080ff));
+    background-image: -webkit-linear-gradient(#ffffff 0px, #ffffff 29px, #0080ff 30px);
+    background-image: -moz-linear-gradient(#ffffff 0px, #ffffff 29px, #0080ff 30px);
+    background-image: -o-linear-gradient(#ffffff 0px, #ffffff 29px, #0080ff 30px);
+    background-image: -ms-linear-gradient(#ffffff 0px, #ffffff 29px, #0080ff 30px);
+    background-image: linear-gradient(#ffffff 0px, #ffffff 29px, #0080ff 30px);
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+    background-color: #fff;
+    background-size: 500px 20px;
+    background-position: 50%;
+    height: inherit;
+    position: absolute;
+    width: inherit;
+    border-radius: 36px;
+}
+
+.current .side_one,
+.current.flip .side_two {
+    -webkit-box-shadow: 0 0.3125rem 1.25rem 0 rgb(0 0 0 / 16%);
+    -moz-box-shadow: 0 0.3125rem 1.25rem 0 rgb(0 0 0 / 16%);
+    box-shadow: 0 0.3125rem 1.25rem 0 rgb(0 0 0 / 16%);
+}
+
+.current.flip .side_one {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.side_one {
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    z-index: 900;
+}
+
+.flip .side_one {
+    -webkit-transform: rotateX(180deg);
+    transform: rotateX(180deg);
+}
+
+.side_two {
+    -webkit-transform: rotateX(-180deg);
+    transform: rotateX(-180deg);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    z-index: 800;
+}
+
+.flip .side_two {
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    z-index: 1000;
+}
+
+.card p {
+    /*background-image: -webkit-gradient(linear, 50% 0%, 50% 44, color-stop(0%, #ffffff), color-stop(97.727%, #ffffff), color-stop(100%, #ff78b4));*/
+    
+    /* background-image: -webkit-linear-gradient(#ffffff 0px, #ffffff 43px, #ff78b4 44px); */
+    background-image: -moz-linear-gradient(#ffffff 0px, #ffffff 43px, #ff78b4 44px);
+    background-image: -o-linear-gradient(#ffffff 0px, #ffffff 43px, #ff78b4 44px);
+    background-image: -ms-linear-gradient(#ffffff 0px, #ffffff 43px, #ff78b4 44px);
+    /* background-image: linear-gradient(#ffffff 0px, #ffffff 43px, #ff78b4 44px); */
+    /* background-size: 500px 45px; */
+    /* background-repeat: repeat-x; */
+    display: table-cell;
+    height: 300px;
+    vertical-align: middle;
+    width: 500px;
+}
+
+#nav_deck {
+    color: #fff;
+    position: relative;
+    margin: auto 24%;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+    .icon:before {
+        content: attr(data-icon);
+        font-family: "Flash Cards";
+        visibility: visible;
+    }
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+#prev:before,
+#next:before,
+#flipper:before {
+    font-size: 30px;
+    padding: 10px;
+    position: absolute;
+    width: 40px;
+    color: #a7a4a4;
+}
+
+#prev:before {
+    left: 0;
+}
+
+#next:before {
+    right: 0;
+}
+
+#flipper:before {
+    left: 50%;
+    margin-left: -30px;
+}
+
+#keyboard_shortcuts {
+    background: #000;
+    display: none;
+    left: 0;
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    z-index: 99999;
+}
+
+    #keyboard_shortcuts h1 {
+        text-align: center;
+    }
+
+    #keyboard_shortcuts td {
+        padding: 15px;
+        text-align: left;
+        width: 300px;
+    }
+
+        #keyboard_shortcuts td:first-child {
+            text-align: right;
+        }
+
+.or {
+    color: #222;
+    padding: 0 10px;
+}
+
+#keyboard_shortcuts_toggle {
+    cursor: pointer;
+    position: absolute;
+    right: 25px;
+    top: 25px;
+}
+
+    #keyboard_shortcuts_toggle:before {
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        -ms-border-radius: 20px;
+        -o-border-radius: 20px;
+        border-radius: 20px;
+        -webkit-background-clip: padding;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        background: #0080ff;
+        border: 1px solid #fff;
+        color: #fff;
+        font-size: 25px;
+        height: 20px;
+        padding: 5px;
+        width: 20px;
+    }
+
+.no-csstransforms3d .flip .side_one,
+.no-csstransforms3d .side_two {
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+    opacity: 0;
+}
+
+.no-csstransforms3d .flip .side_two {
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+    opacity: 1;
+}
+
+
+
+h1 {
+    font-size: 30px;
+}
+
+a {
+    color: #949292;
+}
+
+    a:visited {
+        color: #000;
+    }
+
+    a:hover {
+        color: #000;
+        text-decoration: none;
+    }
+.btn-info {
+    color: #fff !important;
+}
+.btn-danger {
+    color: #fff !important;
+}
+.p-10 {
+    padding: 10px;
+}
+.card:first-child .side_two {
+    font-family: 'Public Sans', sans-serif;
+    
+}
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529 !important;
+}
+.tb-style {
+    margin-top: 13%;
+    color: white;
+    background: var(--card-background);
+    border-radius: .25rem;
+    min-height: 3.625rem;
+    box-shadow: 0 0.125rem 1.25rem rgb(0 0 0 / 8%);
+    border-right: 5px solid #17a2b8 !important;
+    border-radius: 6px;
+}
+.table-bordered td, .table-bordered th {
+    border: 0px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+}
+.table-bordered thead td, .table-bordered thead th {
+    border-bottom-width: 0px;
+}
+.table-bordered {
+    border: 0px solid #dee2e6;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    background: #fffcfc;
+    border: 0px;
+}
+.cards {
+    margin: auto;
+    background: #fff;
+    box-shadow: 0 0.3125rem 1.25rem 0 rgb(0 0 0 / 16%);
+    border-radius: 6px;
+    padding: 20px;
+    text-align: left;
+    font-size: 15px;
+    width: 41%;
+}
+.cards-header {
+    color: #000;
+    text-align: center;
+    text-transform: uppercase;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #000 !important;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    height: 40px !important;
+    box-shadow: 0 2px 5px #e4dfdf;
+}
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    color: #000;
+}
+.btn-secondary {
+    color: #fff !important;
+}
+    /* Smartphones (portrait and landscape) ----------- */
+    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+        #deck {
+            width: 320px;
+        }
+
+        .card {
+            width: 312px;
+        }
+
+        .tb-style {
+            margin-top: 34%;
+        }
+
+        #nav_deck {
+            margin: auto 3%;
+        }
+
+        .cards {
+            width: 86%;
+        }
+    }
+    /* Smartphones (landscape) ----------- */
+    @media only screen and (min-width : 321px) {
+        /* STYLES GO HERE */
+    }
+    /* Smartphones (portrait) ----------- */
+    @media only screen and (max-width : 320px) {
+        /* STYLES GO HERE */
+    }
+    /* iPads (portrait and landscape) ----------- */
+    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+        /* STYLES GO HERE */
+    }
+    /* iPads (landscape) ----------- */
+    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+        /* STYLES GO HERE */
+    }
+    /* iPads (portrait) ----------- */
+    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+        /* STYLES GO HERE */
+    }
+    /* Desktops and laptops ----------- */
+    @media only screen and (min-width : 1224px) {
+        /* STYLES GO HERE */
+    }
+    /* Large screens ----------- */
+    @media only screen and (min-width : 1824px) {
+        /* STYLES GO HERE */
+    }
+    /* iPhone 5 (portrait & landscape)----------- */
+    @media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
+        /* STYLES GO HERE */
+    }
+    /* iPhone 5 (landscape)----------- */
+    @media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : landscape) {
+        /* STYLES GO HERE */
+    }
+    /* iPhone 5 (portrait)----------- */
+    @media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : portrait) {
+        /* STYLES GO HERE */
+    }

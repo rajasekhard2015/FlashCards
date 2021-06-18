@@ -1,0 +1,60 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="row">
+    <div class="cards">
+        <div class="cards-header">
+            <h4>Use a local account to log in.</h4>
+        </div>
+        <form id="account" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label asp-for="Input.RememberMe">
+                        <input asp-for="Input.RememberMe" />
+                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-info btn-sm">
+                    Log in <i class="fa fa-sign-in" aria-hidden="true"></i>
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+<br />
+<div class="form-group">
+    <span>
+        <a id="forgot-password" asp-page="./ForgotPassword" class="p-10">Forgot your password?</a>
+    </span>
+    <span>
+        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="p-10">Register as a new user</a>
+    </span>
+    <span>
+        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation" class="p-10">Resend email confirmation</a>
+    </span>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
